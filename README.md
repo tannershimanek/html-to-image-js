@@ -324,17 +324,3 @@ This library uses a feature of SVG that allows having arbitrary HTML content ins
 - If the DOM node you want to render includes a `<canvas>` element with something drawn on it, it should be handled fine, unless the canvas is [tainted](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image) - in this case rendering will rather not succeed.
 - Rendering will failed on huge DOM due to the dataURI [limit varies](https://stackoverflow.com/questions/695151/data-protocol-url-size-limitations/41755526#41755526).
 
-## Contributing
-
-Please let us know how can we help. Do check out [issues](https://github.com/bubkoo/html-to-image/issues) for bug reports or suggestions first.
-
-To become a contributor, please follow our [contributing guide](/CONTRIBUTING.md).
-
-<a href="https://github.com/bubkoo/html-to-image/graphs/contributors">
-  <img src="/CONTRIBUTORS.svg" alt="Contributors" width="740" />
-</a>
-
-
-## License
-
-The scripts and documentation in this project are released under the [MIT License](LICENSE)
