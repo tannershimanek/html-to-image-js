@@ -7,24 +7,25 @@
 <p align="center">
 <a href="/LICENSE"><img src="https://img.shields.io/github/license/bubkoo/html-to-image?style=for-the-badge" alt="MIT License"></a>
 <a href="https://www.typescriptlang.org"><img alt="Alt text" src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=for-the-badge&logo=JavaScript&logoColor=black"/></a>
-<a href="https://github.com/bubkoo/html-to-image/pulls"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-Welcome-brightgreen.svg?style=for-the-badge"></a>
+<a href="https://github.com/tannershimanek/html-to-image-js/pulls"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-Welcome-brightgreen.svg?style=for-the-badge"></a>
 </p>
 
 ## Install
 
 ```shell
-~~npm install --save html-to-image~~ // todo: create install
+todo: create install
+(no install required, just add project to an existing project)
 ```
 
 ## Usage
 
 ```js
 /* ES6 */
-import * as htmlToImage from 'html-to-image';
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+import * as htmlToImage from './html-to-image-js/src/index.js';
+import { toPng, toJpeg, toBlob, toPixelData, toSvg } from './html-to-image-js/src/index.js';
 
 /* ES5 */
-var htmlToImage = require('html-to-image');
+var htmlToImage = require('./html-to-image-js/src/index.js');
 ```
 
 All the top level functions accept DOM node and rendering options, and return a promise fulfilled with corresponding dataURL:
