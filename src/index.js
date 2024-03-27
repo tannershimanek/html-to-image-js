@@ -103,7 +103,7 @@ async function toCanvas(node, options = {}) {
 
   return canvas;
 }
-
+// FIXME: left off here
 async function toPixelData(node, options = {}) {
   const { width, height } = getImageSize(node, options);
   const canvas = await toCanvas(node, options);
