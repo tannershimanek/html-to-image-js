@@ -32,19 +32,19 @@ const checkCanvasDimensions = utils.checkCanvasDimensions;
  * @returns {Promise<string>} A promise that resolves to a Data URL representing the node as a SVG image.
  */
 async function toSvg(node, options = {}) {
-  console.log('toSvg 1')
+  console.log("toSvg 1");
   const { width, height } = getImageSize(node, options);
-  console.log('toSvg 2')
+  console.log("toSvg 2");
   const clonedNode = await cloneNode(node, options, true);
-  console.log('toSvg 3')
+  console.log("toSvg 3");
   await embedWebFonts(clonedNode, options);
-  console.log('toSvg 4')
+  console.log("toSvg 4");
   await embedImages(clonedNode, options);
-  console.log('toSvg 5')
+  console.log("toSvg 5");
   applyStyle(clonedNode, options);
-  console.log('toSvg 6')
+  console.log("toSvg 6");
   const datauri = await nodeToDataURL(clonedNode, width, height);
-  console.log('toSvg 7')
+  console.log("toSvg 7");
   return datauri;
 }
 
@@ -68,13 +68,13 @@ async function toSvg(node, options = {}) {
  * @returns {Promise<HTMLCanvasElement>} A promise that resolves to a canvas element containing a rasterized version of the DOM node.
  */
 async function toCanvas(node, options = {}) {
-  console.log('toCanvas 1')
+  console.log("toCanvas 1");
 
   const { width, height } = getImageSize(node, options);
-  console.log('toCanvas 3')
+  console.log("toCanvas 3");
 
   const svg = await toSvg(node, options);
-  console.log('toCanvas 4')
+  console.log("toCanvas 4");
   const img = await createImage(svg);
   const canvas = document.createElement("canvas");
 
@@ -99,11 +99,19 @@ async function toCanvas(node, options = {}) {
 
   context.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-  console.log('toCanvas 2')
+  console.log("toCanvas 2");
 
   return canvas;
 }
-// FIXME: left off here
+
+/**
+ * Converts a DOM node to pixel data.
+ * @param {Node} node - The DOM node to convert to pixel data.
+ * @param {Object} [options={}] - Additional options for the conversion.
+ * @param {number} [options.width] - The width of the resulting image.
+ * @param {number} [options.height] - The height of the resulting image.
+ * @returns {Promise<Uint8ClampedArray>} A promise that resolves to the pixel data as a Uint8ClampedArray.
+ */
 async function toPixelData(node, options = {}) {
   const { width, height } = getImageSize(node, options);
   const canvas = await toCanvas(node, options);
@@ -111,23 +119,48 @@ async function toPixelData(node, options = {}) {
   return ctx.getImageData(0, 0, width, height).data;
 }
 
+/**
+ * Converts a DOM node to a PNG image.
+ * @param {Node} node - The DOM node to convert to PNG.
+ * @param {Object} [options={}] - Additional options for the conversion.
+ * @returns {Promise<string>} A promise that resolves to the PNG image as a data URL.
+ */
 async function toPng(node, options = {}) {
   // console.log('toPng')
   const canvas = await toCanvas(node, options);
   return canvas.toDataURL();
 }
 
+/**
+ * Converts a DOM node to a JPEG image.
+ * @param {Node} node - The DOM node to convert to JPEG.
+ * @param {Object} [options={}] - Additional options for the conversion.
+ * @param {number} [options.quality=1] - The quality of the resulting JPEG image (0 to 1).
+ * @returns {Promise<string>} A promise that resolves to the JPEG image as a data URL.
+ */
 async function toJpeg(node, options = {}) {
   const canvas = await toCanvas(node, options);
   return canvas.toDataURL("image/jpeg", options.quality || 1);
 }
 
+/**
+ * Converts a DOM node to a Blob object.
+ * @param {Node} node - The DOM node to convert to a Blob.
+ * @param {Object} [options={}] - Additional options for the conversion.
+ * @returns {Promise<Blob>} A promise that resolves to the converted Blob object.
+ */
 async function toBlob(node, options = {}) {
   const canvas = await toCanvas(node, options);
   const blob = await canvasToBlob(canvas);
   return blob;
 }
 
+/**
+ * Retrieves the CSS code for embedding web fonts used in the specified DOM node.
+ * @param {Node} node - The DOM node to retrieve the web font CSS for.
+ * @param {Object} [options={}] - Additional options for retrieving the CSS.
+ * @returns {Promise<string>} A promise that resolves to the web font CSS code.
+ */
 async function getFontEmbedCSS(node, options = {}) {
   return getWebFontCSS(node, options);
 }
